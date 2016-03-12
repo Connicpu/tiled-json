@@ -3,6 +3,8 @@ name = "tiled-json"
 version = "0.1.0"
 authors = ["Connor Hilarides <connorcpu@live.com>"]
 license = "MIT"
+description = "Tiled parser for the JSON format"
+repository = "https://github.com/connorcpu/tiled-json"
 
 [dependencies]
 serde = "0.7"
