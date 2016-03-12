@@ -1,0 +1,355 @@
+{ "columns":16,
+ "image":"goodly-2x.png",
+ "imageheight":512,
+ "imagewidth":512,
+ "margin":0,
+ "name":"goodly-2x",
+ "properties":
+    {
+
+    },
+ "spacing":0,
+ "terrains":[
+        {
+         "name":"Sky",
+         "tile":241
+        }, 
+        {
+         "name":"Grassland",
+         "tile":33
+        }, 
+        {
+         "name":"Poisoned",
+         "tile":97
+        }, 
+        {
+         "name":"Stone",
+         "tile":41
+        }, 
+        {
+         "name":"Rocky",
+         "tile":105
+        }, 
+        {
+         "name":"Icy",
+         "tile":169
+        }, 
+        {
+         "name":"GrassBackdrop",
+         "tile":53
+        }],
+ "tilecount":256,
+ "tileheight":32,
+ "tileproperties":
+    {
+     "0":
+        {
+         "Solid":"false"
+        },
+     "1":
+        {
+         "Solid":"true"
+        },
+     "100":
+        {
+         "Solid":"false"
+        },
+     "101":
+        {
+         "Solid":"false"
+        },
+     "102":
+        {
+         "Solid":"false"
+        },
+     "116":
+        {
+         "Solid":"false"
+        },
+     "117":
+        {
+         "Solid":"false"
+        },
+     "118":
+        {
+         "Solid":"false"
+        },
+     "16":
+        {
+         "Solid":"true"
+        },
+     "17":
+        {
+         "Solid":"true"
+        },
+     "18":
+        {
+         "Solid":"true"
+        },
+     "19":
+        {
+         "Solid":"true"
+        },
+     "2":
+        {
+         "Solid":"false"
+        },
+     "20":
+        {
+         "Solid":"true"
+        },
+     "21":
+        {
+         "Solid":"true"
+        },
+     "22":
+        {
+         "Solid":"true"
+        },
+     "241":
+        {
+         "Solid":"false",
+         "nodraw":"true"
+        },
+     "3":
+        {
+         "Solid":"false"
+        },
+     "4":
+        {
+         "Solid":"false"
+        },
+     "5":
+        {
+         "Solid":"false"
+        },
+     "6":
+        {
+         "Solid":"false"
+        },
+     "64":
+        {
+         "Solid":"false"
+        },
+     "66":
+        {
+         "Solid":"false"
+        },
+     "7":
+        {
+         "Solid":"false"
+        }
+    },
+ "tiles":
+    {
+     "104":
+        {
+         "terrain":[0, 4, 0, 4]
+        },
+     "105":
+        {
+         "terrain":[4, 4, 4, 4]
+        },
+     "106":
+        {
+         "terrain":[4, 0, 4, 0]
+        },
+     "112":
+        {
+         "terrain":[0, 2, 0, 0]
+        },
+     "113":
+        {
+         "terrain":[2, 2, 0, 0]
+        },
+     "114":
+        {
+         "terrain":[2, 0, 0, 0]
+        },
+     "120":
+        {
+         "terrain":[0, 4, 0, 0]
+        },
+     "121":
+        {
+         "terrain":[4, 4, 0, 0]
+        },
+     "122":
+        {
+         "terrain":[4, 0, 0, 0]
+        },
+     "152":
+        {
+         "terrain":[0, 0, 0, 5]
+        },
+     "153":
+        {
+         "terrain":[0, 0, 5, 5]
+        },
+     "154":
+        {
+         "terrain":[0, 0, 5, 0]
+        },
+     "16":
+        {
+         "terrain":[0, 0, 0, 1]
+        },
+     "168":
+        {
+         "terrain":[0, 5, 0, 5]
+        },
+     "169":
+        {
+         "terrain":[5, 5, 5, 5]
+        },
+     "17":
+        {
+         "terrain":[0, 0, 1, 1]
+        },
+     "170":
+        {
+         "terrain":[5, 0, 5, 0]
+        },
+     "18":
+        {
+         "terrain":[0, 0, 1, 0]
+        },
+     "184":
+        {
+         "terrain":[0, 5, 0, 0]
+        },
+     "185":
+        {
+         "terrain":[5, 5, 0, 0]
+        },
+     "186":
+        {
+         "terrain":[5, 0, 0, 0]
+        },
+     "24":
+        {
+         "terrain":[0, 0, 0, 3]
+        },
+     "241":
+        {
+         "terrain":[0, 0, 0, 0]
+        },
+     "25":
+        {
+         "terrain":[0, 0, 3, 3]
+        },
+     "26":
+        {
+         "terrain":[0, 0, 3, 0]
+        },
+     "32":
+        {
+         "terrain":[0, 1, 0, 1]
+        },
+     "33":
+        {
+         "terrain":[1, 1, 1, 1]
+        },
+     "34":
+        {
+         "terrain":[1, 0, 1, 0]
+        },
+     "36":
+        {
+         "terrain":[0, 0, 0, 6]
+        },
+     "37":
+        {
+         "terrain":[0, 0, 6, 6]
+        },
+     "38":
+        {
+         "terrain":[0, 0, 6, 0]
+        },
+     "40":
+        {
+         "terrain":[0, 3, 0, 3]
+        },
+     "41":
+        {
+         "terrain":[3, 3, 3, 3]
+        },
+     "42":
+        {
+         "terrain":[3, 0, 3, 0]
+        },
+     "48":
+        {
+         "terrain":[0, 1, 0, 0]
+        },
+     "49":
+        {
+         "terrain":[1, 1, 0, 0]
+        },
+     "50":
+        {
+         "terrain":[1, 0, 0, 0]
+        },
+     "52":
+        {
+         "terrain":[0, 6, 0, 6]
+        },
+     "53":
+        {
+         "terrain":[6, 6, 6, 6]
+        },
+     "54":
+        {
+         "terrain":[6, 0, 6, 0]
+        },
+     "56":
+        {
+         "terrain":[0, 3, 0, 0]
+        },
+     "57":
+        {
+         "terrain":[3, 3, 0, 0]
+        },
+     "58":
+        {
+         "terrain":[3, 0, 0, 0]
+        },
+     "80":
+        {
+         "terrain":[0, 0, 0, 2]
+        },
+     "81":
+        {
+         "terrain":[0, 0, 2, 2]
+        },
+     "82":
+        {
+         "terrain":[0, 0, 2, 0]
+        },
+     "88":
+        {
+         "terrain":[0, 0, 0, 4]
+        },
+     "89":
+        {
+         "terrain":[0, 0, 4, 4]
+        },
+     "90":
+        {
+         "terrain":[0, 0, 4, 0]
+        },
+     "96":
+        {
+         "terrain":[0, 2, 0, 2]
+        },
+     "97":
+        {
+         "terrain":[2, 2, 2, 2]
+        },
+     "98":
+        {
+         "terrain":[2, 0, 2, 0]
+        }
+    },
+ "tilewidth":32
+}

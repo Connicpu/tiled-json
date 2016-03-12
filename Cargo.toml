@@ -1,0 +1,9 @@
+[package]
+name = "tiled-json"
+version = "0.1.0"
+authors = ["Connor Hilarides <connorcpu@live.com>"]
+
+[dependencies]
+serde = "0.7"
+serde_json = "0.7"
+serde_macros = "0.7"
