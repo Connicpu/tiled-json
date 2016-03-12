@@ -4,6 +4,8 @@ use std::ffi::OsStr;
 use std::fs::File;
 use std::collections::HashMap;
 
+use {GlobalTile, LocalTile};
+
 use serde::{Deserialize, Deserializer};
 
 use serde_json;
@@ -43,7 +45,7 @@ pub struct Tileset {
     pub spacing: u32,
     
     /// Key-Value pair properties specified for this tileset (game-specific data)
-    pub properties: HashMap<String, String>,
+    pub properties: Option<HashMap<String, String>>,
     /// List of all the terrain types defined in this tileset. The values inside
     /// the `tiles` member correspond to indices in this array
     pub terrains: Vec<Terrain>,
@@ -138,7 +140,7 @@ struct ExternalTileset {
     margin: u32,
     spacing: u32,
     
-    properties: HashMap<String, String>,
+    properties: Option<HashMap<String, String>>,
     terrains: Vec<Terrain>,
     tileproperties: TileProperties,
     tiles: TileTerrain,
@@ -215,43 +217,6 @@ impl Deserialize for TileTerrain {
     }
 }
 
-#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
-pub struct GlobalTile(u32);
-
-impl GlobalTile {
-    /// From this GlobalTile, given the set of tilesets associated with the
-    /// map, find the Tileset and LocalTile this ID belongs to, or None
-    /// if it does not belong to any.
-    pub fn find_local(self, sets: &[Tileset]) -> Option<(&Tileset, LocalTile)> {
-        for set in sets {
-            if set.contains_tile(self) {
-                let id = LocalTile(self.0 - set.firstgid.0);
-                return Some((set, id))
-            }
-        }
-        None
-    }
-}
-
-impl Deserialize for GlobalTile {
-    fn deserialize<D: Deserializer>(d: &mut D) -> Result<Self, D::Error> {
-        // These are just wrapper structs, the values
-        // should be decoded as a plain u32
-        Ok(GlobalTile(try!(u32::deserialize(d))))
-    }
-}
-
-#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
-pub struct LocalTile(u32);
-
-impl Deserialize for LocalTile {
-    fn deserialize<D: Deserializer>(d: &mut D) -> Result<Self, D::Error> {
-        // These are just wrapper structs, the values
-        // should be decoded as a plain u32
-        Ok(LocalTile(try!(u32::deserialize(d))))
-    }
-}
-
 #[derive(Clone, Debug, Deserialize)]
 pub struct Terrain {
     pub name: String,
@@ -263,7 +228,6 @@ pub struct Terrain {
 fn deserialize_external() {
     use serde_json::from_str;
     
-    let data = include_str!("../test-assets/goodly-2x.json");
-    let set: ExternalTileset = from_str(data).unwrap();
-    panic!("{:#?}", set)
+    let data = include_str!("../test-assets/tilesets/goodly-2x.json");
+    let _: ExternalTileset = from_str(data).unwrap();
 }
