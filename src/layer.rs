@@ -23,14 +23,19 @@ impl Deserialize for Layer {
             _ => return Err(D::Error::custom("Layer was not a table")),
         };
         
+        println!("{:#?}", data);
         Ok(match &kind[..] {
             "tilelayer" => Layer::Tiles(match from_value(data) {
                 Ok(layer) => layer,
-                Err(e) => return Err(D::Error::custom(e.description())),
+                Err(e) => return Err(D::Error::custom(
+                    Into::<String>::into("tilelayer failed ") + e.description()
+                )),
             }),
             "objectgroup" => Layer::Objects(match from_value(data) {
                 Ok(layer) => layer,
-                Err(e) => return Err(D::Error::custom(e.description())),
+                Err(e) => return Err(D::Error::custom(
+                    Into::<String>::into("objectgroup failed ") + e.description()
+                )),
             }),
             _ => return Err(D::Error::custom("Unknown layer type")),
         })
@@ -54,6 +59,7 @@ pub struct TileLayer {
 #[derive(Clone, Debug, Deserialize)]
 pub struct ObjectLayer {
     pub name: String,
+    pub draworder: String,
     pub opacity: f32,
     pub properties: Option<HashMap<String, String>>,
     pub visible: bool,
@@ -63,14 +69,6 @@ pub struct ObjectLayer {
     pub y: f32,
     
     pub objects: Vec<Object>,
-}
-
-#[derive(Copy, Clone, Debug, PartialEq, Deserialize)]
-pub enum DrawOrder {
-    #[serde(rename = "index")]
-    Index,
-    #[serde(rename = "topdown")]
-    TopDown,
 }
 
 #[derive(Clone, Debug, Deserialize)]
@@ -86,7 +84,6 @@ pub struct Object {
     pub properties: Option<HashMap<String, String>>,
     pub rotation: f32,
     pub visible: bool,
-    pub draworder: DrawOrder,
     
     pub height: f32,
     pub width: f32,
