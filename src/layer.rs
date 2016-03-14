@@ -10,6 +10,15 @@ pub enum Layer {
     Objects(ObjectLayer),
 }
 
+impl Layer {
+    pub fn name(&self) -> &str {
+        match *self {
+            Layer::Tiles(ref tiles) => &tiles.name,
+            Layer::Objects(ref objects) => &objects.name,
+        }
+    }
+}
+
 impl Deserialize for Layer {
     fn deserialize<D: Deserializer>(d: &mut D) -> Result<Self, D::Error> {
         use serde::de::Error as SerdeError;
@@ -23,7 +32,6 @@ impl Deserialize for Layer {
             _ => return Err(D::Error::custom("Layer was not a table")),
         };
         
-        println!("{:#?}", data);
         Ok(match &kind[..] {
             "tilelayer" => Layer::Tiles(match from_value(data) {
                 Ok(layer) => layer,
@@ -59,7 +67,6 @@ pub struct TileLayer {
 #[derive(Clone, Debug, Deserialize)]
 pub struct ObjectLayer {
     pub name: String,
-    pub draworder: String,
     pub opacity: f32,
     pub properties: Option<HashMap<String, String>>,
     pub visible: bool,
@@ -68,6 +75,7 @@ pub struct ObjectLayer {
     pub x: f32,
     pub y: f32,
     
+    pub draworder: String,
     pub objects: Vec<Object>,
 }
 

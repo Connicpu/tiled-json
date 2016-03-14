@@ -11,7 +11,7 @@ pub mod level;
 pub mod tileset;
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
-pub struct GlobalTile(u32);
+pub struct GlobalTile(pub u32);
 
 impl GlobalTile {
     /// From this GlobalTile, given the set of tilesets associated with the
@@ -37,7 +37,7 @@ impl Deserialize for GlobalTile {
 }
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
-pub struct LocalTile(u32);
+pub struct LocalTile(pub u32);
 
 impl Deserialize for LocalTile {
     fn deserialize<D: Deserializer>(d: &mut D) -> Result<Self, D::Error> {

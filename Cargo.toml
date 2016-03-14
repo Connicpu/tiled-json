@@ -1,6 +1,6 @@
 [package]
 name = "tiled-json"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Connor Hilarides <connorcpu@live.com>"]
 license = "MIT"
 description = "Tiled parser for the JSON format"
