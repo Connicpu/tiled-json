@@ -87,7 +87,8 @@ pub struct Object {
     #[serde(rename = "type")]
     pub _type: String,
     pub gid: Option<GlobalTile>,
-    // TODO: Other geometry type data?
+    pub ellipse: Option<bool>,
+    pub polygon: Option<Vec<PolyPoint>>,
     
     pub properties: Option<HashMap<String, String>>,
     pub rotation: f32,
@@ -96,6 +97,12 @@ pub struct Object {
     pub height: f32,
     pub width: f32,
     
+    pub x: f32,
+    pub y: f32,
+}
+
+#[derive(Copy, Clone, Debug, Deserialize)]
+pub struct PolyPoint {
     pub x: f32,
     pub y: f32,
 }
