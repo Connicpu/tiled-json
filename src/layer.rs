@@ -90,7 +90,7 @@ pub struct Object {
     pub ellipse: Option<bool>,
     pub polygon: Option<Vec<PolyPoint>>,
     
-    pub properties: Option<HashMap<String, String>>,
+    pub properties: HashMap<String, String>,
     pub rotation: f32,
     pub visible: bool,
     
