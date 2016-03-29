@@ -48,7 +48,7 @@ pub struct Tileset {
     pub properties: Option<HashMap<String, String>>,
     /// List of all the terrain types defined in this tileset. The values inside
     /// the `tiles` member correspond to indices in this array
-    pub terrains: Vec<Terrain>,
+    pub terrains: Option<Vec<Terrain>>,
     /// Key-Value pair properties associated with specific tiles in this set
     pub tileproperties: TileProperties,
     /// List of tiles that are associated with specific terrain, and which
@@ -141,7 +141,7 @@ struct ExternalTileset {
     spacing: u32,
     
     properties: Option<HashMap<String, String>>,
-    terrains: Vec<Terrain>,
+    terrains: Option<Vec<Terrain>>,
     tileproperties: TileProperties,
     tiles: TileTerrain,
 }
