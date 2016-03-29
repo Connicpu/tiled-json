@@ -11,17 +11,17 @@ pub mod level;
 pub mod tileset;
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
-pub struct GlobalTile(u32);
+pub struct GlobalTile(pub u32);
 
 impl GlobalTile {
     /// From this GlobalTile, given the set of tilesets associated with the
     /// map, find the Tileset and LocalTile this ID belongs to, or None
     /// if it does not belong to any.
-    pub fn find_local(self, sets: &[tileset::Tileset]) -> Option<(&tileset::Tileset, LocalTile)> {
-        for set in sets {
+    pub fn find_local(self, sets: &[tileset::Tileset]) -> Option<(usize, LocalTile)> {
+        for (i, set) in sets.iter().enumerate() {
             if set.contains_tile(self) {
                 let id = LocalTile(self.0 - set.firstgid.0);
-                return Some((set, id))
+                return Some((i, id))
             }
         }
         None
@@ -37,7 +37,7 @@ impl Deserialize for GlobalTile {
 }
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
-pub struct LocalTile(u32);
+pub struct LocalTile(pub u32);
 
 impl Deserialize for LocalTile {
     fn deserialize<D: Deserializer>(d: &mut D) -> Result<Self, D::Error> {

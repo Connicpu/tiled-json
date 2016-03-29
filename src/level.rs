@@ -15,7 +15,7 @@ pub struct Level {
     pub properties: HashMap<String, String>,
     
     pub orientation: String,
-    pub renderorder: RenderOrder,
+    pub renderorder: String,
     
     pub tileheight: u32,
     pub tilewidth: u32,
@@ -25,11 +25,29 @@ pub struct Level {
 }
 
 impl Level {
-    pub fn load<P: AsRef<Path>>(path: &P) -> Result<Level, JsonError> {
-        let mut file = try!(File::open(path));
+    pub fn load<P: AsRef<Path>>(path: P) -> Result<Level, JsonError> {
+        let mut file = try!(File::open(&path));
         let level: IntermediateLevel = try!(serde_json::from_reader(&mut file));
         
-        unimplemented!();
+        let tilesets: Vec<Tileset> = try!(level.tilesets.into_iter().map(|data| {
+            Tileset::load(data, &path.as_ref())
+        }).collect());
+        
+        Ok(Level {
+            height: level.height,
+            width: level.width,
+            
+            properties: level.properties,
+            
+            orientation: level.orientation,
+            renderorder: level.renderorder,
+            
+            tileheight: level.tileheight,
+            tilewidth: level.tilewidth,
+            
+            layers: level.layers,
+            tilesets: tilesets,
+        })
     }
 }
 
@@ -41,7 +59,7 @@ struct IntermediateLevel {
     properties: HashMap<String, String>,
     
     orientation: String,
-    renderorder: RenderOrder,
+    renderorder: String,
     
     tileheight: u32,
     tilewidth: u32,
@@ -50,15 +68,9 @@ struct IntermediateLevel {
     tilesets: Vec<JsonValue>,
 }
 
-#[derive(Copy, Clone, Debug, Deserialize)]
-pub enum RenderOrder {
-    #[serde(rename = "right-down")]
-    RightDown,
-    #[serde(rename = "right-up")]
-    RightUp,
-    #[serde(rename = "left-down")]
-    LeftDown,
-    #[serde(rename = "left-up")]
-    LeftUp,
+#[test]
+pub fn load_level() {
+    let path = "test-assets/levels/simple2.json";
+    let _ = Level::load(path).unwrap();
 }
 

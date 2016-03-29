@@ -10,6 +10,15 @@ pub enum Layer {
     Objects(ObjectLayer),
 }
 
+impl Layer {
+    pub fn name(&self) -> &str {
+        match *self {
+            Layer::Tiles(ref tiles) => &tiles.name,
+            Layer::Objects(ref objects) => &objects.name,
+        }
+    }
+}
+
 impl Deserialize for Layer {
     fn deserialize<D: Deserializer>(d: &mut D) -> Result<Self, D::Error> {
         use serde::de::Error as SerdeError;
@@ -26,11 +35,15 @@ impl Deserialize for Layer {
         Ok(match &kind[..] {
             "tilelayer" => Layer::Tiles(match from_value(data) {
                 Ok(layer) => layer,
-                Err(e) => return Err(D::Error::custom(e.description())),
+                Err(e) => return Err(D::Error::custom(
+                    Into::<String>::into("tilelayer failed ") + e.description()
+                )),
             }),
             "objectgroup" => Layer::Objects(match from_value(data) {
                 Ok(layer) => layer,
-                Err(e) => return Err(D::Error::custom(e.description())),
+                Err(e) => return Err(D::Error::custom(
+                    Into::<String>::into("objectgroup failed ") + e.description()
+                )),
             }),
             _ => return Err(D::Error::custom("Unknown layer type")),
         })
@@ -62,15 +75,8 @@ pub struct ObjectLayer {
     pub x: f32,
     pub y: f32,
     
+    pub draworder: String,
     pub objects: Vec<Object>,
-}
-
-#[derive(Copy, Clone, Debug, PartialEq, Deserialize)]
-pub enum DrawOrder {
-    #[serde(rename = "index")]
-    Index,
-    #[serde(rename = "topdown")]
-    TopDown,
 }
 
 #[derive(Clone, Debug, Deserialize)]
@@ -81,16 +87,22 @@ pub struct Object {
     #[serde(rename = "type")]
     pub _type: String,
     pub gid: Option<GlobalTile>,
-    // TODO: Other geometry type data?
+    pub ellipse: Option<bool>,
+    pub polygon: Option<Vec<PolyPoint>>,
     
-    pub properties: Option<HashMap<String, String>>,
+    pub properties: HashMap<String, String>,
     pub rotation: f32,
     pub visible: bool,
-    pub draworder: DrawOrder,
     
     pub height: f32,
     pub width: f32,
     
+    pub x: f32,
+    pub y: f32,
+}
+
+#[derive(Copy, Clone, Debug, Deserialize)]
+pub struct PolyPoint {
     pub x: f32,
     pub y: f32,
 }

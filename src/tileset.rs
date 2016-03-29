@@ -34,7 +34,7 @@ pub struct Tileset {
     pub columns: u32,
     /// Path to the image representing this tileset
     /// TODO: Support multi-image sets?
-    pub image: String,
+    pub image: PathBuf,
     /// Expected height in pixels of the image
     pub imageheight: u32,
     /// Expected width in pixels of the image
@@ -90,6 +90,9 @@ impl Tileset {
                 // Parse the tileset file into an ExternalTileset structure
                 let ext: ExternalTileset = try!(serde_json::from_reader(&mut file));
                 
+                path.pop();
+                path.push(&ext.image);
+                
                 Tileset {
                     name: ext.name,
                     firstgid: GlobalTile(firstgid),
@@ -99,7 +102,7 @@ impl Tileset {
                     tilewidth: ext.tilewidth,
                     
                     columns: ext.columns,
-                    image: ext.image,
+                    image: path,
                     imageheight: ext.imageheight,
                     imagewidth: ext.imagewidth,
                     margin: ext.margin,
@@ -113,7 +116,12 @@ impl Tileset {
             },
             // The tileset is inlined in the level, just parse its data
             _ => {
-                try!(serde_json::from_value(JsonValue::Object(data)))
+                let mut tileset: Tileset = try!(serde_json::from_value(JsonValue::Object(data)));
+                let mut path = PathBuf::from(data_path);
+                path.pop();
+                path.push(&tileset.image);
+                tileset.image = path;
+                tileset
             }
         })
     }
@@ -134,7 +142,7 @@ struct ExternalTileset {
     tilewidth: u32,
     
     columns: u32,
-    image: String,
+    image: PathBuf,
     imageheight: u32,
     imagewidth: u32,
     margin: u32,
